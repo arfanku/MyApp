@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="img/myapp.png" rel="icon" />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My App</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #262626, #1e1e1e);
+        color: #e0e0e0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      #form-container {
+        background-color: #333333;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        max-width: 500px; /* Set maksimum lebar form */
+        width: 90%; /* Tidak mengambil seluruh lebar pada tampilan desktop */
+      }
+
+      h2 {
+        color: #00ffcc;
+        text-align: center;
+      }
+
+      label {
+        color: #e0e0e0;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      select,
+      textarea {
+        width: calc(
+          100% - 20px
+        ); /* Mengambil seluruh lebar, dikurangi padding */
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: #444444;
+        color: #e0e0e0;
+      }
+
+      input[type="date"] {
+        width: 120px;
+        height: 25px;
+        border-radius: 5px;
+        font-size: large;
+      }
+
+      input[type="file"] {
+      font-size: medium;
+      }
+      input[type="file"]:hover {
+      color:#00ffcc;
+      }
+
+      input[type="submit"] {
+        background-color: #00ffcc;
+        color: #262626;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #006c56;
+        color: white;
+      }
+
+      @media (max-width: 600px) {
+        /* Styling untuk tampilan mobile */
+        #form-container {
+          padding: 15px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+          width: calc(100% - 20px);
+        }
+
+        input[type="submit"] {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="form-container">
+      <h2>Data Kegiatan Guru</h2>
+      <form
+        action="https://script.google.com/macros/s/AKfycbwohPdnWkLNTFyyJxG6Qmn4cEcD2pUIbCTw2CbiwZrVgRJ3hjEKMvi0BjZopfrCofvozw/exec"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <label for="no">Nomor</label>
+        <input type="number" id="no" name="no" required />
+        <br /><br />
+        <label for="nama">Nama Kegiatan:</label>
+        <input type="text" id="nama" name="nama" required />
+        <br /><br />
+        <label for="jenis">Pilih Jenis Kegiatan:</label>
+        <select name="jenis" id="jenis" required>
+          <option></option>
+          <option value="kbm">KBM</option>
+          <option value="nonkbm">Non KBM</option>
+        </select>
+        <br /><br />
+        <label for="tgl_kgt">Tanggal kegiatan:</label>
+        <input type="date" id="tgl_kgt" name="tgl_kgt" required />
+        <br /><br />
+        <label for="uraian">Uraian Kegiatan:</label>
+        <br />
+        <textarea
+          cols="60"
+          rows="5"
+          id="uraian"
+          name="uraian"
+          required
+        ></textarea>
+        <br /><br />
+        <label for="target">Target Capaian:</label>
+        <br />
+        <textarea
+          cols="60"
+          rows="5"
+          id="target"
+          name="target"
+          required
+        ></textarea>
+        <br /><br />
+        <label for="buktis">Bukti Kegiatan:</label>
+        <input type="file" name="buktis" id="buktis" accept="image/*" />
+        <input type="hidden" id="buktisEnc" name="buktisEnc" />
+
+        <script>
+          document
+            .getElementById("buktis")
+            .addEventListener("change", function (event) {
+              var file = event.target.files[0];
+              var reader = new FileReader();
+              reader.onloadend = function () {
+                document.getElementById("buktisEnc").value =
+                  reader.result.split(",")[1];
+              };
+              reader.readAsDataURL(file);
+            });
+        </script>
+        <script>
+          document
+            .getElementById("kameraButton")
+            .addEventListener("click", function () {
+              document.getElementById("buktis").click();
+            });
+        </script>
+
+        <input type="submit" value="Simpan Data" />
+      </form>
+    </div>
+  </body>
+</html>
