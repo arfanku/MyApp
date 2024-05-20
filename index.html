@@ -20,11 +20,15 @@
 
       #form-container {
         background-color: #333333;
-        padding: 30px;
+        padding: 70px;
         border-radius: 10px;
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-        max-width: 500px; 
-        width: 100%; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        width: 70%;
+        max-width: 100%;
       }
 
       h2 {
@@ -34,15 +38,14 @@
 
       label {
         color: #e0e0e0;
+        align-self: flex-start;
       }
 
       input[type="text"],
       input[type="number"],
       select,
       textarea {
-        width: calc(
-          100% - 20px
-        ); /* Mengambil seluruh lebar, dikurangi padding */
+        width: 100%;
         padding: 10px;
         margin-bottom: 15px;
         border: none;
@@ -52,17 +55,26 @@
       }
 
       input[type="date"] {
-        width: 120px;
-        height: 25px;
+        width: 100%;
+        padding: 10px;
+        border: none;
         border-radius: 5px;
-        font-size: large;
+        background-color: #444444;
+        color: #e0e0e0;
       }
 
       input[type="file"] {
-      font-size: medium;
+        font-size: medium;
+        background-color: #444444;
+        color: #e0e0e0;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        width: 100%;
       }
+
       input[type="file"]:hover {
-      color:#00ffcc;
+        color: #00ffcc;
       }
 
       input[type="submit"] {
@@ -84,19 +96,12 @@
       }
 
       @media (max-width: 600px) {
-        /* Styling untuk tampilan mobile */
+        body {
+          padding: 20px;
+        }
+
         #form-container {
           padding: 15px;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        select,
-        textarea {
-          width: calc(100% - 20px);
-        }
-
-        input[type="submit"] {
           width: 100%;
         }
       }
@@ -107,39 +112,30 @@
     <div id="form-container">
       <h2>Data Kegiatan Guru</h2>
       <form
-        action="https://script.google.com/macros/s/AKfycby27WvJ6QtNO5PiIe7M4a4lnJY8RLT1MEKq9FM8YMQeH8JjXYBmLURBBevop-9hU3zmnQ/exec"
+        action="https://script.google.com/macros/s/AKfycbwWqunIZEGzJJUnBg3G8Sx025wbIgkT0nPcHki5VKMfGOfQ3pGs6J6a1bW7rXP9zXcLrQ/exec"
         method="post"
         enctype="multipart/form-data"
       >
         <label for="no">Nomor</label>
         <input type="number" id="no" name="no" required />
-        <br /><br />
+
+        <label for="target">Target Capaian:</label>
+        <input type="text" id="target" name="target" required />
+
         <label for="nama">Nama Kegiatan:</label>
         <input type="text" id="nama" name="nama" required />
-        <br /><br />
 
-        <label for="jabatan">Jabatan:</label>
-        <select name="jabatan" id="jabatan" required>
-          <option></option>
-          <option value="Guru">Guru</option>
-          <option value="Wali kelas">Wali kelas</option>
-          <option value="Ketua jurusan">Ketua jurusan</option>
-          <option value="Wakil kepala sekolah">Wakil kepala sekolah</option>
-        </select>
-        <br /><br />
-        
         <label for="jenis">Pilih Jenis Kegiatan:</label>
         <select name="jenis" id="jenis" required>
           <option></option>
-          <option value="kbm">KBM</option>
-          <option value="nonkbm">Non KBM</option>
+          <option value="KBM">KBM</option>
+          <option value="Non-KBM">Non KBM</option>
         </select>
-        <br /><br />
+
         <label for="tgl_kgt">Tanggal kegiatan:</label>
         <input type="date" id="tgl_kgt" name="tgl_kgt" required />
-        <br /><br />
+
         <label for="uraian">Uraian Kegiatan:</label>
-        <br />
         <textarea
           cols="60"
           rows="5"
@@ -147,17 +143,7 @@
           name="uraian"
           required
         ></textarea>
-        <br /><br />
-        <label for="target">Target Capaian:</label>
-        <br />
-        <textarea
-          cols="60"
-          rows="5"
-          id="target"
-          name="target"
-          required
-        ></textarea>
-        <br /><br />
+
         <label for="buktis">Bukti Kegiatan:</label>
         <input type="file" name="buktis" id="buktis" accept="image/*" />
         <input type="hidden" id="buktisEnc" name="buktisEnc" />
