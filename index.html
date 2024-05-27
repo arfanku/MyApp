@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <link href="img/myapp.png" rel="icon" />
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My App</title>
@@ -16,33 +15,49 @@
         align-items: center;
         height: 100vh;
         margin: 0;
+        padding: 20px;
       }
 
       #form-container {
         background-color: #333333;
-        padding: 70px;
+        padding: 40px;
         border-radius: 10px;
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
         display: flex;
         flex-direction: column;
         justify-content: center;
-
-        width: 70%;
-        max-width: 100%;
+        width: 100%;
+        max-width: 800px;
+        box-sizing: border-box;
       }
 
       h2 {
         color: #00ffcc;
         text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .form-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
       }
 
       label {
         color: #e0e0e0;
-        align-self: flex-start;
+        margin-bottom: 5px;
       }
 
       input[type="text"],
       input[type="number"],
+      input[type="date"],
+      input[type="file"],
       select,
       textarea {
         width: 100%;
@@ -52,25 +67,11 @@
         border-radius: 5px;
         background-color: #444444;
         color: #e0e0e0;
-      }
-
-      input[type="date"] {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #444444;
-        color: #e0e0e0;
+        box-sizing: border-box;
       }
 
       input[type="file"] {
         font-size: medium;
-        background-color: #444444;
-        color: #e0e0e0;
-        border: none;
-        border-radius: 5px;
-        padding: 10px;
-        width: 100%;
       }
 
       input[type="file"]:hover {
@@ -88,6 +89,7 @@
         transition: background-color 0.3s ease;
         width: 100%;
         margin-top: 20px;
+        box-sizing: border-box;
       }
 
       input[type="submit"]:hover {
@@ -95,13 +97,12 @@
         color: white;
       }
 
-      @media (max-width: 600px) {
-        body {
-          padding: 20px;
+      @media (max-width: 800px) {
+        .form-row {
+          flex-direction: column;
         }
 
-        #form-container {
-          padding: 15px;
+        .form-group {
           width: 100%;
         }
       }
@@ -112,41 +113,63 @@
     <div id="form-container">
       <h2>Data Kegiatan Guru</h2>
       <form
-        action="https://script.google.com/macros/s/AKfycbwWqunIZEGzJJUnBg3G8Sx025wbIgkT0nPcHki5VKMfGOfQ3pGs6J6a1bW7rXP9zXcLrQ/exec"
+        action="https://script.google.com/macros/s/AKfycbyfsLnCCakek78uqjWl38p0oMnw0-vP5Kvpmxsz-Jvg2DV7rVMoAJvZuJFenfFXAtOtOQ/exec"
         method="post"
         enctype="multipart/form-data"
       >
-        <label for="no">Nomor</label>
-        <input type="number" id="no" name="no" required />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="no">Nomor</label>
+            <input type="number" id="no" name="no" required />
+          </div>
+          <div class="form-group">
+            <label for="kelas">Kelas</label>
+            <input type="text" id="kelas" name="kelas" required />
+          </div>
+        </div>
 
-        <label for="target">Target Capaian:</label>
-        <input type="text" id="target" name="target" required />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="target">Target Capaian</label>
+            <input type="text" id="target" name="target" required />
+          </div>
+          <div class="form-group">
+            <label for="nama">Nama Kegiatan</label>
+            <input type="text" id="nama" name="nama" required />
+          </div>
+        </div>
 
-        <label for="nama">Nama Kegiatan:</label>
-        <input type="text" id="nama" name="nama" required />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="jenis">Pilih Jenis Kegiatan</label>
+            <select name="jenis" id="jenis" required>
+              <option value="" disabled selected hidden></option>
+              <option value="KBM">KBM</option>
+              <option value="Non-KBM">Non KBM</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tgl_kgt">Tanggal Kegiatan</label>
+            <input type="date" id="tgl_kgt" name="tgl_kgt" required />
+          </div>
+        </div>
 
-        <label for="jenis">Pilih Jenis Kegiatan:</label>
-        <select name="jenis" id="jenis" required>
-          <option></option>
-          <option value="KBM">KBM</option>
-          <option value="Non-KBM">Non KBM</option>
-        </select>
+        <div class="form-group">
+          <label for="uraian">Uraian Kegiatan</label>
+          <textarea
+            cols="60"
+            rows="5"
+            id="uraian"
+            name="uraian"
+            required
+          ></textarea>
+        </div>
 
-        <label for="tgl_kgt">Tanggal kegiatan:</label>
-        <input type="date" id="tgl_kgt" name="tgl_kgt" required />
-
-        <label for="uraian">Uraian Kegiatan:</label>
-        <textarea
-          cols="60"
-          rows="5"
-          id="uraian"
-          name="uraian"
-          required
-        ></textarea>
-
-        <label for="buktis">Bukti Kegiatan:</label>
-        <input type="file" name="buktis" id="buktis" accept="image/*" />
-        <input type="hidden" id="buktisEnc" name="buktisEnc" />
+        <div class="form-group">
+          <label for="buktis">Bukti Kegiatan</label>
+          <input type="file" name="buktis" id="buktis" accept="image/*" />
+          <input type="hidden" id="buktisEnc" name="buktisEnc" />
+        </div>
 
         <script>
           document
@@ -160,8 +183,7 @@
               };
               reader.readAsDataURL(file);
             });
-        </script>
-        <script>
+
           document
             .getElementById("kameraButton")
             .addEventListener("click", function () {
